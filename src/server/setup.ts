@@ -1,18 +1,21 @@
+import { RouteProps } from '@src/routes'
 import bodyParser from 'body-parser'
 import express from 'express'
 
 export class SetupServer {
   private app
   private port: number
+  private routes: RouteProps
 
-  constructor(port: number) {
+  constructor(options: { port: number; routes: RouteProps }) {
     this.app = express()
-    this.port = port
+    this.port = options.port
+    this.routes = options.routes
   }
 
   init() {
     this.configs()
-    this.routes()
+    this.router()
     this.app.listen(this.port)
   }
 
@@ -20,9 +23,9 @@ export class SetupServer {
     this.app.use(bodyParser.json())
   }
 
-  routes() {
-    this.app.use('/', (req, res) => {
-      res.send('meu ovooo')
+  router() {
+    this.routes.forEach((route) => {
+      this.app[route.method](route.route, route.controller)
     })
   }
 }
