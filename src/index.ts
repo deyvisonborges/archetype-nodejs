@@ -1,5 +1,4 @@
-function resolve(a: number, b: number) {
-  return `the result is ${a + b}`
-}
+import { SetupServer } from './server/setup'
 
-console.log(resolve(2, 3))
+const server = new SetupServer(4001)
+server.init()
