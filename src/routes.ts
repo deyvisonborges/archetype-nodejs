@@ -13,7 +13,9 @@ export type RouteProps = {
 export const routes: RouteProps = [
   {
     method: 'get',
-    route: '',
-    controller: () => null
+    route: '/',
+    controller: (req, res) => {
+      res.status(200).send('Tudo certo')
+    }
   }
 ]
